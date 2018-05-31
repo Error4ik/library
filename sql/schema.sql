@@ -30,7 +30,7 @@ CREATE TABLE covers (
   url  VARCHAR(500) NOT NULL
 );
 
-CREATE TABLE genre (
+CREATE TABLE genres (
   id    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   genre VARCHAR(255) NOT NULL
 );
