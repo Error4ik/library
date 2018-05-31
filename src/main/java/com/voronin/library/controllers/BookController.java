@@ -73,4 +73,8 @@ public class BookController {
     public Book getBookById(@PathVariable final UUID id) {
         return this.bookService.getBookById(id);
     }
+
+    public void setBook() {
+
+    }
 }
