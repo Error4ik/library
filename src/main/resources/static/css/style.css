@@ -1,0 +1,149 @@
+.navbar-brand > img {
+    max-height: 200%;
+    height: 200%;
+    width: auto;
+    margin: 0 auto;
+}
+
+header {
+    text-align: justify;
+    letter-spacing: 1px;
+    height: 100px;
+    background: #2c3e50;
+    color: #fff;
+    margin-bottom: 0px;
+}
+
+header::after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+footer {
+    margin-top: 0px;
+    text-align: justify;
+    letter-spacing: 1px;
+    height: 142px;
+    background: #2c3e50;
+    color: #fff;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.add-logo :hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.bookmark {
+    height: 270px;
+    width: 165px;
+    opacity: 0.9;
+    margin: 5px 0;
+    overflow: hidden;
+    flex: 1 1 auto;
+    position: relative;
+}
+
+.bookmark:hover {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.bookmark-icon {
+    width: 162px;
+    height: 220px;
+    position: absolute;
+}
+
+.bookmark-icon > img {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 7px;
+}
+
+.bookmark-content {
+    padding: 2px;
+    height: 230px;
+}
+
+.bookmark-content > p {
+    width: 100%;
+    height: 40px;
+    color: #000000;
+    position: absolute;
+    left: 0;
+    margin-bottom: 2px;
+    right: 0;
+    text-align: center;
+    bottom: 2px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.bookmark-name {
+    white-space: pre-wrap;
+    overflow: hidden;
+    padding: 2px;
+    text-overflow: ellipsis;
+}
+
+.test {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.link_genre {
+    margin-bottom: 5px;
+    margin-left: 20px;
+}
+
+.wrapper {
+    background-color: #d9dfca;
+}
+
+.book-parameter {
+    font-size: 12px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+h3 {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+A {
+    color: #8c600a;
+}
+A:visited {
+    color: #8c600a;
+}
+A:active {
+    color: darkgreen;
+}
+A:hover {
+    text-decoration: underline;
+    color: rosybrown;
+}

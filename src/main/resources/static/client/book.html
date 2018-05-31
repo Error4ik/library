@@ -1,0 +1,58 @@
+<div style="margin-top: 20px">
+    <div class="col-md-12 bookmark-content">
+        <div class="col-md-4">
+            <div class="bookmark-content">
+                <div class="bookmark-icon">
+                    <img src="./image/{{book.cover.id}}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8" style="height: 100%">
+            <div>
+                <h3>
+                    {{ book.name }}
+                </h3>
+            </div>
+            <div>
+    <span id="book-author" ng-repeat="author in book.authors">
+    <a href="#!/author/{{author.id}}">
+    {{ author.name }}
+    </a>
+    </span>
+            </div>
+
+            <div style="position: absolute; bottom: 0px">
+                <a href="#!/reed/{{}}" class="btn btn-success">Читать</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-top: 20px">
+        <div class="col-md-8">
+            <div style="text-align: center">
+                <label for="description" style="font-size: 14px; color: red">Описание книги: </label>
+            </div>
+            <p id="description">
+                {{ book.description }}
+            </p>
+        </div>
+        <div class="col-md-4" style="margin-bottom: 20px">
+            <div class="book-parameter">
+                <p>Дата написания: {{ book.createDate | date: 'dd MMM yyyy'}}</p>
+            </div>
+            <div class="book-parameter">
+                <p>Дата добавления: {{ book.dateAdded | date: 'dd MMM yyyy'}}</p>
+            </div>
+            <div class="book-parameter">
+                <p>Страниц: {{ book.page }}</p>
+            </div>
+            <div class="book-parameter">
+                <label for="genre">Жанр: </label>
+                <span id="genre" ng-repeat="genre in book.genres">
+    {{ genre.genre }}
+    </span>
+            </div>
+        </div>
+    </div>
+</div>

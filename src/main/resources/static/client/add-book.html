@@ -1,0 +1,45 @@
+<div style="margin-top: 20px; margin-bottom: 20px">
+    <form id="addNewBook" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Book name"
+                   autofocus required="required">
+        </div>
+        <label for="author">Author:</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
+            <input type="text" class="form-control" id="author" name="author"
+                   placeholder="Author" required="required">
+        </div>
+        <label for="genre">Genre:</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-scale"></i></span>
+            <select multiple size="6" class="form-control" id="genre" name="genre" required>
+                <option ng-repeat="genre in genres">{{ genre.genre }}</option>
+            </select>
+        </div>
+        <label for="cover">Select a photo of a book:</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+            <input type="file" name="cover" id="cover" required="required"><br/>
+        </div>
+        <label for="someBook">Select of a book:</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+            <input type="file" name="someBook" id="someBook" required="required"><br/>
+        </div>
+        <label for="description">Enter description of a book</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-arrow-down"></i></span>
+            <textarea id="description" name="description" required="required" maxlength="3000">
+            </textarea><br/>
+        </div>
+        <label for="date">Date of writing the book</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+            <input id="date" type="date" name="date">
+        </div>
+        <button type="submit" onclick="addBook();" class="btn btn-success" style="margin-top: 15px">Sign On</button>
+    </form>
+</div>

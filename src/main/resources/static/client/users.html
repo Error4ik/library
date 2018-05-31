@@ -1,0 +1,32 @@
+<div class="col-md-12">
+    <div class="col-md-6">
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in users">
+                    <td>
+                        <a href="#!/user/{{user.id}}">
+                            {{ user.email }}
+                        </a>
+                    </td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.password }}</td>
+                    <td>
+                        <a href="#!/role/{{user.roles[0].id}}">
+                            {{ user.roles[0].role }}
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        {{ currentUser }}
+    </div>
+</div>

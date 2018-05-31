@@ -1,0 +1,25 @@
+<div style="margin-top: 20px">
+    <div class="col-md-12">
+        <input type="text" ng-model="query" class="form-control" placeholder="Search"/>
+    </div>
+    <div class="col-md-3" dir-paginate="book in books | itemsPerPage: 12 | filter: query">
+        <div class="bookmark">
+            <a href="#!/book/{{book.id}}">
+                <div class="bookmark-content">
+                    <div class="bookmark-icon">
+                        <img src="./image/{{book.cover.id}}"/>
+                    </div>
+                    <p class="bookmark-name">{{ book.name }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12" align="center">
+        <dir-pagination-controls
+                ng-hide="query.length > 0"
+                max-size="10"
+                direction-links="true"
+                boundary-links="true">
+        </dir-pagination-controls>
+    </div>
+</div>

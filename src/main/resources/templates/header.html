@@ -1,0 +1,25 @@
+<header xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header" style="height: 70px">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand add-logo" data-toggle="modal" id="add-bookmark"
+                   th:attr="data-target='#addBookmark'" style="display: none">
+                    <!--<img th:src="@{/resources/img/pluslogo.png}" alt="logo"/>-->
+                </a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse" style="height: 70px">
+                <ul class="nav navbar-nav navbar-right" style="margin: 10px">
+                    <li><a href="/library" >Главная</a></li>
+                    <li><a href="#!/addBooks">Добавить Книгу</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/angular.js}"></script>
+    <script type="text/javascript" th:src="@{/js/angular-route.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/tether.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/library.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="container wrapper">
+    <div class="pull-center">
+        <div class="col col-md-4 pet-info-background">
+            <h2>Sign In</h2>
+            <form name="login" th:action="@{/login}" method="post" style="width: 300px">
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">
+                        Invalid username or password.
+                    </div>
+                </div>
+                <label for="email">Email:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"
+                           autofocus required="required">
+                </div>
+                <label for="password">Password:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password"
+                           name="password" required="required">
+                </div>
+                <button type="submit" class="btn btn-success" style="margin-top: 15px; margin-bottom: 15px">
+                    Sign In
+                </button>
+            </form>
+        </div>
+
+        <div class="col col-md-4 pet-info-background pull-right">
+            <h2>Sign On</h2>
+            <form name="register" th:action="@{/register}" method="post" style="width: 300px">
+                <div th:if="${error}">
+                    <div class="alert alert-danger">
+                        Почта уже используется!
+                    </div>
+                </div>
+                <label for="reg-email">Email:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <input type="email" class="form-control" id="reg-email" placeholder="Enter email" name="email"
+                           required="required">
+                </div>
+                <label for="reg-password">Password:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" id="reg-password" placeholder="Enter password"
+                           name="password" required="required">
+                </div>
+                <button type="submit" class="btn btn-success pull-right" style="margin-top: 15px; margin-bottom: 15px">
+                    Sign On
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+</body>
+</html>
