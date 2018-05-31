@@ -3,7 +3,7 @@ CREATE DATABASE library;
 CREATE EXTENSION pgcrypto;
 
 CREATE TABLE roles (
-  id   UUID PRIMARY KEY,
+  id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   role VARCHAR(255) UNIQUE NOT NULL
 );
 
@@ -70,6 +70,9 @@ CREATE TABLE authors_books (
   FOREIGN KEY (book_id) REFERENCES books (id),
   FOREIGN KEY (author_id) REFERENCES authors (id)
 );
+
+INSERT INTO roles (role) VALUES ('user');
+INSERT INTO roles (role) VALUES ('admin');
 
 INSERT INTO genres (genre) VALUES ('Фантастика');
 INSERT INTO genres (genre) VALUES ('Фэнтези');
