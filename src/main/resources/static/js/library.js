@@ -18,6 +18,9 @@ library.config(function ($routeProvider) {
     }).when('/book/:id', {
         templateUrl: "client/book.html",
         controller: "BookController"
+    }).when('/reed/:id', {
+        templateUrl: "client/reed-book.html",
+        controller: "TestController"
     }).otherwise({
         templateUrl: "client/empty.html"
     });
@@ -51,10 +54,22 @@ library.controller("AuthorController", function ($scope, $http, $routeParams) {
     })
 });
 
-library.controller("BookController", function ($scope, $http, $routeParams) {
+library.controller("BookController", function ($scope, $http, $routeParams, $sce) {
     doGet($http, base_url + "/book/book/" + $routeParams.id, function (data) {
         $scope.book = data;
     })
+});
+
+library.controller("TestController", function ($scope, $http, $routeParams, $sce) {
+    $http.get(base_url + "/pdf/book-content/" + $routeParams.id, {responseType: "arraybuffer"})
+        .then(function (data) {
+            var content = new Blob([data.data], {type: 'application/pdf'});
+            var fileURL = URL.createObjectURL(content);
+            $scope.file = $sce.trustAsResourceUrl(fileURL);
+        })
+        .then(function (data, status) {
+        $scope.info = "Request failed with status: " + status;
+    });
 });
 
 function doGet($http, url, action, error) {
