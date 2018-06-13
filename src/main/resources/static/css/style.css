@@ -119,6 +119,12 @@ footer {
     margin-left: 20px;
 }
 
+.link_color {
+    text-decoration-color: red;
+    font-weight: 700;
+    font-family: "Comic Sans MS";
+}
+
 .wrapper {
     background-color: #d9dfca;
 }

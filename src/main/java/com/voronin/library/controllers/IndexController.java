@@ -29,8 +29,8 @@ public class IndexController {
     @RequestMapping("/")
     public ModelAndView getMainPage() {
         final ModelAndView view = new ModelAndView("index");
-        view.addObject("genres", this.genreService.findAll());
-        view.addObject("authors", this.authorService.getAuthors());
+        view.addObject("genres", this.genreService.getRandomAuthorsLimit20());
+        view.addObject("authors", this.authorService.getRandomAuthorsLimit20());
         return view;
     }
 }

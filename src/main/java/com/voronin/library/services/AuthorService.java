@@ -35,4 +35,8 @@ public class AuthorService {
     public Author getAuthorById(final UUID id) {
         return this.authorRepository.getById(id);
     }
+
+    public List<Author> getRandomAuthorsLimit20() {
+        return this.authorRepository.getRandomAuthorsLimit20();
+    }
 }
