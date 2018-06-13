@@ -7,12 +7,16 @@ import com.voronin.library.domain.Image;
 import com.voronin.library.repository.BookRepository;
 import com.voronin.library.util.CropTheFile;
 import com.voronin.library.util.WriteFileToDisk;
+import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -43,6 +47,13 @@ public class BookService {
 
     @Autowired
     private AuthorService authorService;
+
+    @Value("${default.image.path}")
+    private String pathToDefaultImage;
+
+    @Value("${default.image.name}")
+    private String imageName;
+
 
     public Book save(final Book book) {
         return this.bookRepository.save(book);
@@ -75,12 +86,33 @@ public class BookService {
         return this.save(book);
     }
 
+    public List<Book> getBooksByAuthor(final Author author) {
+        List<Author> authors = new ArrayList<>();
+        authors.add(author);
+        return this.bookRepository.getBooksByAuthors(authors);
+    }
+
     private Image prepareImage(final MultipartFile file) {
-        File f = this.writeFileToDisk.writeImage(this.cropTheFile.crop(file));
-        Image image = new Image();
-        image.setName(f.getName());
-        image.setUrl(f.getAbsolutePath());
-        return image;
+        MultipartFile tmp = file;
+        if (!(tmp.getOriginalFilename().length() > 0)) {
+            tmp = this.getFile();
+        }
+        File f = this.writeFileToDisk.writeImage(tmp.getOriginalFilename(), this.cropTheFile.crop(tmp));
+        Image img = new Image();
+        img.setName(f.getName());
+        img.setUrl(f.getAbsolutePath());
+        return img;
+    }
+
+    private MultipartFile getFile() {
+        MultipartFile file = null;
+        try (FileInputStream input = new FileInputStream(new File(pathToDefaultImage))) {
+            file = new MockMultipartFile("file", imageName, "text/plain",
+                    IOUtils.toByteArray(input));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     private int countPage(final File file) {
@@ -111,11 +143,5 @@ public class BookService {
             list.add(newAuthor);
         }
         return list;
-    }
-
-    public List<Book> getBooksByAuthor(final Author author) {
-        List<Author> authors = new ArrayList<>();
-        authors.add(author);
-        return this.bookRepository.getBooksByAuthors(authors);
     }
 }

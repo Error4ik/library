@@ -22,31 +22,39 @@ public class WriteFileToDisk {
 
     private final String fileSeparator = System.getProperty("file.separator");
 
-    @Value("${upload.folder}")
-    private String saveToPath;
+    @Value("${upload.image.folder}")
+    private String pathToSaveImage;
+
+    @Value("${upload.books.folder}")
+    private String pathToSaveBooks;
 
     @Value("${file.extension.to.save}")
     private String fileExtension;
 
-    public File writeImage(final BufferedImage image) {
-        File dir = new File(saveToPath + fileSeparator + "book cover");
+    @Value("${default.image.name}")
+    private String imageName;
+
+    public File writeImage(final String imageName, final BufferedImage image) {
+        File dir = new File(pathToSaveImage);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File file = new File(dir + fileSeparator + System.currentTimeMillis() + "." + fileExtension);
+
+        String path = imageName.equalsIgnoreCase(this.imageName) ?
+                String.format("%s%s%s", dir, fileSeparator, this.imageName) :
+                String.format("%s%s%s.%s", dir, fileSeparator, System.currentTimeMillis(), fileExtension);
+
+        File file = new File(path);
         try {
             ImageIO.write(image, fileExtension, file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return file;
     }
 
     public File writeBook(final MultipartFile multipartFile, final Book book) {
-        File dir = new File(
-                saveToPath + fileSeparator + "books" + fileSeparator +
-                        book.getGenres().iterator().next().getGenre());
+        File dir = new File(pathToSaveBooks + book.getGenres().iterator().next().getGenre());
         if (!dir.exists()) {
             dir.mkdirs();
         }
