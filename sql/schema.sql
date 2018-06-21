@@ -44,8 +44,6 @@ CREATE TABLE books (
   date_added  TIMESTAMP              DEFAULT now(),
   cover       UUID,
   description VARCHAR(3000) NOT NULL DEFAULT 'empty',
-  rating      INTEGER                DEFAULT 0,
-  votes       INTEGER                DEFAULT 0,
 
   FOREIGN KEY (cover) REFERENCES covers (id)
 );
