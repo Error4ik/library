@@ -2,6 +2,7 @@
     <div class="col-md-12 bookmark-content">
         <div class="col-md-4">
             <div class="bookmark-content">
+                <input type="hidden" id="book-id" name="book-id" value="{{book.id}}">
                 <div class="bookmark-icon">
                     <img src="./image/{{book.cover.id}}"/>
                 </div>
@@ -10,19 +11,47 @@
 
         <div class="col-md-8" style="height: 100%">
             <div>
-                <h3>
+                <h4>
                     {{ book.name }}
-                </h3>
+                </h4>
             </div>
             <div>
-    <span id="book-author" ng-repeat="author in book.authors">
-    <a href="#!/author/{{author.id}}">
-    {{ author.name }}
-    </a>
-    </span>
+                <span id="book-author" ng-repeat="author in book.authors">
+                    <a href="#!/author/{{author.id}}">
+                        {{ author.name }}
+                    </a>
+                </span>
             </div>
 
-            <div style="position: absolute; bottom: 0px">
+            <div class="rating-holder">
+                <div class="user-rating-holder">
+                    <div class="user-rating">
+                        <div class="voting-holder">
+                            <div data-score="5" class="vote onestar"></div>
+                            <div data-score="4" class="vote twostar"></div>
+                            <div data-score="3" class="vote threestar"></div>
+                            <div data-score="2" class="vote fourstar"></div>
+                            <div data-score="1" class="vote fivestar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="passive-rating-holder">
+                    <div class="rating-bg"></div>
+                    <div class="rating-mask" id="rating-mask" style="width:{{ratingWidth}}%"></div>
+                </div>
+                <div class="rate-numbers">
+                    <div>
+                        <span class="rating-value" id="rating-value">{{(book.rating / book.votes).toFixed(2)}}</span>
+                        /
+                        <span class="best-rating">5.00</span><br>
+                        (
+                        <span class="comments-count">{{ book.votes }}</span>
+                        голосов)
+                    </div>
+                </div>
+            </div>
+
+            <div style="position: absolute; bottom: 0; padding: 10px">
                 <a href="#!/reed/{{book.id}}" class="btn btn-success">Читать</a>
             </div>
         </div>
@@ -49,9 +78,9 @@
             </div>
             <div class="book-parameter">
                 <label for="genre">Жанр: </label>
-                <span id="genre" ng-repeat="genre in book.genres">
-    {{ genre.genre }}
-    </span>
+                <div id="genre" ng-repeat="genre in book.genres">
+                    {{ genre.genre }}
+                </div>
             </div>
         </div>
     </div>

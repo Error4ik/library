@@ -9,6 +9,14 @@
                     <div class="bookmark-icon">
                         <img src="./image/{{book.cover.id}}"/>
                     </div>
+                    <div class="rating-holder" style="position:relative;left:5px; top: 5px; width: 165px">
+                        <div class="passive-rating-holder">
+                            <div class="rating-bg"></div>
+                            <div class="rating-mask" id="rating-mask"
+                                 style="width:{{(book.rating / book.votes / 5) * 100}}%">
+                            </div>
+                        </div>
+                    </div>
                     <p class="bookmark-name">{{ book.name }}</p>
                 </div>
             </a>

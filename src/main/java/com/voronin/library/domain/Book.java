@@ -26,7 +26,6 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
 
-
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "books_genre", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
@@ -47,6 +46,10 @@ public class Book {
     private Image cover;
 
     private String description;
+
+    private int rating;
+
+    private int votes;
 
     public Book() {
     }
@@ -137,6 +140,22 @@ public class Book {
         this.description = description;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,13 +170,16 @@ public class Book {
                 Objects.equals(getCreateDate(), book.getCreateDate()) &&
                 Objects.equals(getDateAdded(), book.getDateAdded()) &&
                 Objects.equals(getCover(), book.getCover()) &&
-                Objects.equals(getDescription(), book.getDescription());
+                Objects.equals(getDescription(), book.getDescription()) &&
+                Objects.equals(getRating(), book.getRating()) &&
+                Objects.equals(getVotes(), book.getVotes());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName(), getAuthors(),
-                getGenres(), getPage(), getUrl(), getCreateDate(), getDateAdded(), getCover(), getDescription());
+                getGenres(), getPage(), getUrl(), getCreateDate(), getDateAdded(), getCover(),
+                getDescription(), getRating(), getVotes());
     }
 
     @Override
@@ -172,6 +194,8 @@ public class Book {
                 ", createDate=" + createDate +
                 ", dateAdded=" + dateAdded +
                 ", cover=" + cover +
+                ", rating" + rating +
+                ", votes" + votes +
                 '}';
     }
 }

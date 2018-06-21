@@ -37,13 +37,15 @@ CREATE TABLE genres (
 
 CREATE TABLE books (
   id          UUID PRIMARY KEY,
-  name        VARCHAR(255) NOT NULL,
-  page        INTEGER      NOT NULL,
+  name        VARCHAR(255)  NOT NULL,
+  page        INTEGER       NOT NULL,
   url         VARCHAR(500),
-  create_date TIMESTAMP    NOT NULL,
-  date_added  TIMESTAMP DEFAULT now(),
+  create_date TIMESTAMP     NOT NULL,
+  date_added  TIMESTAMP              DEFAULT now(),
   cover       UUID,
   description VARCHAR(3000) NOT NULL DEFAULT 'empty',
+  rating      INTEGER                DEFAULT 0,
+  votes       INTEGER                DEFAULT 0,
 
   FOREIGN KEY (cover) REFERENCES covers (id)
 );
@@ -58,8 +60,8 @@ CREATE TABLE books_genre (
 );
 
 CREATE TABLE authors (
-  id      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name    VARCHAR(255) NOT NULL
+  id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE authors_books (
@@ -69,6 +71,16 @@ CREATE TABLE authors_books (
 
   FOREIGN KEY (book_id) REFERENCES books (id),
   FOREIGN KEY (author_id) REFERENCES authors (id)
+);
+
+CREATE TABLE users_books_rating (
+  id      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID    NOT NULL,
+  book_id UUID    NOT NULL,
+  rating  INTEGER NOT NULL DEFAULT 0,
+
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (book_id) REFERENCES books (id)
 );
 
 INSERT INTO roles (role) VALUES ('user');

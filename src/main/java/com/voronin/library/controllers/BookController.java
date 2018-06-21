@@ -5,6 +5,7 @@ import com.voronin.library.domain.Genre;
 import com.voronin.library.services.AuthorService;
 import com.voronin.library.services.BookService;
 import com.voronin.library.services.GenreService;
+import com.voronin.library.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.security.Principal;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * TODO: comment.
@@ -33,6 +38,9 @@ public class BookController {
 
     @Autowired
     private AuthorService authorService;
+
+    @Autowired
+    private RatingService ratingService;
 
     @RequestMapping("/genres")
     private Set<Genre> getGenres() {
@@ -69,5 +77,10 @@ public class BookController {
     @RequestMapping("/book/{id}")
     public Book getBookById(@PathVariable final UUID id) {
         return this.bookService.getBookById(id);
+    }
+
+    @RequestMapping("/add-rating")
+    public Book addBookRating(@RequestParam final String id, @RequestParam final int rating, final Principal principal) {
+        return this.ratingService.prepareAndSave(id, rating, principal);
     }
 }
