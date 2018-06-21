@@ -50,6 +50,9 @@ CREATE TABLE books (
   FOREIGN KEY (cover) REFERENCES covers (id)
 );
 
+ALTER TABLE books ADD rating INT DEFAULT 0 NULL;
+ALTER TABLE books ADD votes INT DEFAULT 0 NULL;
+
 CREATE TABLE books_genre (
   id       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   book_id  UUID NOT NULL,
