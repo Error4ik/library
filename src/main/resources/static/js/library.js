@@ -54,10 +54,11 @@ library.controller("AuthorController", function ($scope, $http, $routeParams) {
     })
 });
 
-library.controller("BookController", function ($scope, $http, $routeParams) {
+library.controller("BookController", function ($scope, $http, $routeParams, $rootScope) {
     doGet($http, base_url + "/book/book/" + $routeParams.id, function (data) {
         $scope.book = data;
         $scope.ratingWidth = ((data.rating / data.votes) / 5) * 100;
+        $rootScope.bookName = data.name;
     });
 
     $('.vote').on('click', function () {
@@ -85,12 +86,14 @@ library.controller("BookController", function ($scope, $http, $routeParams) {
     });
 });
 
-library.controller("BookReadController", function ($scope, $http, $routeParams, $sce) {
+library.controller("BookReadController", function ($scope, $http, $routeParams, $sce, $rootScope) {
     $http.get(base_url + "/pdf/book-content/" + $routeParams.id, {responseType: "arraybuffer"})
         .then(function (data) {
             var content = new Blob([data.data], {type: 'application/pdf'});
             var fileURL = URL.createObjectURL(content);
             $scope.file = $sce.trustAsResourceUrl(fileURL);
+            $scope.id = $routeParams.id;
+            $scope.name = $rootScope.bookName;
         })
         .then(function (data, status) {
             $scope.info = "Request failed with status: " + status;
