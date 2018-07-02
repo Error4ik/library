@@ -109,4 +109,4 @@ INSERT INTO genres (genre) VALUES ('Боевик');
 ALTER TABLE books ADD rating INT DEFAULT 0 NULL;
 ALTER TABLE books ADD votes INT DEFAULT 0 NULL;
 ALTER TABLE books ADD average_rating FLOAT DEFAULT 0 NULL;
-ALTER TABLE genres ADD count_book INT DEFAULT 0 NULL;
+ALTER TABLE genres ADD count_books INT DEFAULT 0 NULL;
