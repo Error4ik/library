@@ -30,10 +30,6 @@ library.controller("IndexContentController", function ($scope, $http) {
     doGet($http, base_url + "/book/books", function (data) {
         $scope.books = data;
     });
-
-    doGet($http, base_url + "/book/genres", function (data) {
-        $scope.genres = data;
-    });
 });
 
 library.controller("AddBookController", function ($scope, $http) {
@@ -48,17 +44,18 @@ library.controller("BooksByGenreController", function ($scope, $http, $routePara
     });
 });
 
-library.controller("AuthorController", function ($scope, $http, $routeParams) {
+library.controller("AuthorController", function ($scope, $http, $routeParams, $rootScope) {
     doGet($http, base_url + "/book/author/" + $routeParams.id, function (data) {
         $scope.books = data;
+        $scope.book = $rootScope.book;
+        $("#nav-index-content").show();
     })
 });
 
 library.controller("BookController", function ($scope, $http, $routeParams, $rootScope) {
     doGet($http, base_url + "/book/book/" + $routeParams.id, function (data) {
         $scope.book = data;
-        $scope.ratingWidth = ((data.rating / data.votes) / 5) * 100;
-        $rootScope.bookName = data.name;
+        $rootScope.book = data;
     });
 
     $('.vote').on('click', function () {
@@ -77,7 +74,6 @@ library.controller("BookController", function ($scope, $http, $routeParams, $roo
                 ratingValueElement.text(parseFloat(data.rating / data.votes).toFixed(2));
                 var commentCountElement = parent.find('.comments-count');
                 commentCountElement.text(data.votes);
-                $scope.ratingWidth = ((data.rating / data.votes) / 5) * 100;
             },
             error: function (error) {
                 console.log("ERROR: ", error);
@@ -92,8 +88,7 @@ library.controller("BookReadController", function ($scope, $http, $routeParams, 
             var content = new Blob([data.data], {type: 'application/pdf'});
             var fileURL = URL.createObjectURL(content);
             $scope.file = $sce.trustAsResourceUrl(fileURL);
-            $scope.id = $routeParams.id;
-            $scope.name = $rootScope.bookName;
+            $scope.book = $rootScope.book;
         })
         .then(function (data, status) {
             $scope.info = "Request failed with status: " + status;
@@ -139,4 +134,8 @@ function addBook() {
             console.log("ERROR: ", error);
         }
     });
+}
+
+function omgFunction(genres) {
+    console.log("hello");
 }

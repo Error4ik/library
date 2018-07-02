@@ -127,7 +127,11 @@ public class BookService {
     }
 
     private List<Genre> getGenres(final String genre) {
-        return this.genreService.findGenresInName(Arrays.asList(genre.trim().split(",")));
+        List<Genre> list = this.genreService.findGenresInName(Arrays.asList(genre.trim().split(",")));
+        for (Genre g : list) {
+            g.setCountBooks(g.getCountBooks() + 1);
+        }
+        return list;
     }
 
     private List<Author> getAuthors(final String author) {

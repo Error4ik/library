@@ -1,6 +1,6 @@
 <div style="margin-top: 20px">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-12">
             <ol class="breadcrumb">
                 <li>
                     <a href="/library">Главная</a>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="passive-rating-holder">
                     <div class="rating-bg"></div>
-                    <div class="rating-mask" id="rating-mask" style="width:{{ratingWidth}}%"></div>
+                    <div class="rating-mask" id="rating-mask" style="width:{{book.averageRating}}%"></div>
                 </div>
                 <div class="rate-numbers">
                     <div>
@@ -68,7 +68,7 @@
     </div>
 
     <div class="col-md-12" style="margin-top: 20px">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div style="text-align: center">
                 <label for="description" style="font-size: 14px; color: red">Описание книги: </label>
             </div>
@@ -76,15 +76,18 @@
                 {{ book.description }}
             </p>
         </div>
-        <div class="col-md-4" style="margin-bottom: 20px">
+        <div class="col-md-3" style="margin-bottom: 20px">
             <div class="book-parameter">
-                <p>Дата написания: {{ book.createDate | date: 'dd MMM yyyy'}}</p>
+                <label for="create-date">Дата написания: </label>
+                <p id="create-date">{{ book.createDate | date: 'dd MMM yyyy'}}</p>
             </div>
             <div class="book-parameter">
-                <p>Дата добавления: {{ book.dateAdded | date: 'dd MMM yyyy'}}</p>
+                <label for="add-date">Дата добавления: </label>
+                <p id="add-date"> {{ book.dateAdded | date: 'dd MMM yyyy'}}</p>
             </div>
             <div class="book-parameter">
-                <p>Страниц: {{ book.page }}</p>
+                <label for="count-page">Страниц: </label>
+                <p id="count-page">{{ book.page }}</p>
             </div>
             <div class="book-parameter">
                 <label for="genre">Жанр: </label>

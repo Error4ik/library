@@ -36,8 +36,4 @@ public class GenreService {
     public List<Genre> findGenresInName(final List<String> names) {
         return this.genreRepository.findByGenreInOrderByGenreAsc(names);
     }
-
-    public List<Genre> getRandomAuthorsLimit20() {
-        return this.genreRepository.getRandomAuthorsLimit20();
-    }
 }

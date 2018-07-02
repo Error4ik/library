@@ -1,8 +1,21 @@
-<div style="margin-top: 20px">
+<div id="nav-index-content" class="row" style="display: none">
+    <div class="col-lg-12" style="padding-top: 20px;">
+        <ol class="breadcrumb">
+            <li>
+                <a href="/library">Главная</a>
+            </li>
+            <li>
+                <a href="#!/book/{{book.id}}">{{ book.name }}</a>
+            </li>
+            <li class="active">Author books...</li>
+        </ol>
+    </div>
+</div>
+<div style="margin-top: 10px" class="row">
     <div class="col-md-12" style="margin-bottom: 10px">
         <input type="text" ng-model="query" class="form-control" placeholder="Search"/>
     </div>
-    <div class="col-md-3" dir-paginate="book in books | itemsPerPage: 12 | filter: query">
+    <div class="col-md-3 content" dir-paginate="book in books | itemsPerPage: 15 | filter: query">
         <div class="bookmark">
             <a href="#!/book/{{book.id}}">
                 <div class="bookmark-content">
@@ -12,9 +25,7 @@
                     <div class="rating-holder" style="position:relative;left:5px; top: 5px; width: 165px">
                         <div class="passive-rating-holder">
                             <div class="rating-bg"></div>
-                            <div class="rating-mask" id="rating-mask"
-                                 style="width:{{(book.rating / book.votes / 5) * 100}}%">
-                            </div>
+                            <div class="rating-mask" id="rating-mask" style="width:{{book.averageRating}}%"></div>
                         </div>
                     </div>
                     <p class="bookmark-name">{{ book.name }}</p>

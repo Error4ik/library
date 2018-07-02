@@ -21,24 +21,27 @@
         <div class="row no-gutter">
             <div class="col-md-12 no-gutter">
                 <div class="col-md-2">
-                    <div class="test link_color">
-                        <a th:href="@{'#!/author/5'}" th:text="${'...Все Жанры...'}"></a>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle text-margin link_color" type="button"
+                                data-toggle="dropdown" th:text="${'...Все Жанры...'}">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li th:each="genre : ${genres}">
+                                <a th:href="@{'#!/genre/' + ${genre.id}}" th:text="${genre.genre}"></a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="link_genre" th:each="genre : ${genres}">
-                        <a th:href="@{'#!/genre/' + ${genre.id}}" th:text="${genre.genre}"></a>
+                    <div class="link_genre" th:each="genre, iterator : ${genres}">
+                        <div th:if="${iterator.index} < 20">
+                            <a th:href="@{'#!/genre/' + ${genre.id}}" th:text="${genre.genre}"></a>
+                            <span th:text="${genre.countBooks}"></span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md-8" ng-view style="background: #d6a9a9"></div>
+                <div class="row col-md-10" ng-view style="background: #d6a9a9"></div>
 
-                <div class="col-md-2">
-                    <div class="test link_color">
-                        <a th:href="@{'#!/author/5'}" th:text="${'...Все Авторы...'}"></a>
-                    </div>
-                    <div th:each="author : ${authors}" class="link_genre">
-                        <a th:href="@{'#!/author/' + ${author.id}}" th:text="${author.name}"></a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

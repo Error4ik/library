@@ -51,6 +51,9 @@ public class Book {
 
     private int votes;
 
+    @Column(name = "average_rating")
+    private float averageRating;
+
     public Book() {
     }
 
@@ -156,6 +159,14 @@ public class Book {
         this.votes = votes;
     }
 
+    public float getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(float averageRating) {
+        this.averageRating = averageRating;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -172,14 +183,15 @@ public class Book {
                 Objects.equals(getCover(), book.getCover()) &&
                 Objects.equals(getDescription(), book.getDescription()) &&
                 Objects.equals(getRating(), book.getRating()) &&
-                Objects.equals(getVotes(), book.getVotes());
+                Objects.equals(getVotes(), book.getVotes()) &&
+                Objects.equals(getAverageRating(), book.getAverageRating());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName(), getAuthors(),
                 getGenres(), getPage(), getUrl(), getCreateDate(), getDateAdded(), getCover(),
-                getDescription(), getRating(), getVotes());
+                getDescription(), getRating(), getVotes(), getAverageRating());
     }
 
     @Override
@@ -196,6 +208,7 @@ public class Book {
                 ", cover=" + cover +
                 ", rating" + rating +
                 ", votes" + votes +
+                ", average rating" + averageRating +
                 '}';
     }
 }

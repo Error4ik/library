@@ -1,9 +1,6 @@
 package com.voronin.library.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -23,6 +20,9 @@ public class Genre {
 
     private String genre;
 
+    @Column(name = "count_books")
+    private int countBooks;
+
     public UUID getId() {
         return id;
     }
@@ -39,18 +39,27 @@ public class Genre {
         this.genre = genre;
     }
 
+    public int getCountBooks() {
+        return countBooks;
+    }
+
+    public void setCountBooks(int countBooks) {
+        this.countBooks = countBooks;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Genre)) return false;
         Genre genre1 = (Genre) o;
         return Objects.equals(getId(), genre1.getId()) &&
-                Objects.equals(getGenre(), genre1.getGenre());
+                Objects.equals(getGenre(), genre1.getGenre())
+                && Objects.equals(getCountBooks(), genre1.getCountBooks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getGenre());
+        return Objects.hash(getId(), getGenre(), getCountBooks());
     }
 
     @Override
@@ -58,6 +67,7 @@ public class Genre {
         return "Genre{" +
                 "id=" + id +
                 ", genre='" + genre + '\'' +
+                ", countBooks=" + countBooks +
                 '}';
     }
 }

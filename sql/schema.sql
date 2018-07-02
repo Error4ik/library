@@ -48,9 +48,6 @@ CREATE TABLE books (
   FOREIGN KEY (cover) REFERENCES covers (id)
 );
 
-ALTER TABLE books ADD rating INT DEFAULT 0 NULL;
-ALTER TABLE books ADD votes INT DEFAULT 0 NULL;
-
 CREATE TABLE books_genre (
   id       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   book_id  UUID NOT NULL,
@@ -107,3 +104,9 @@ INSERT INTO genres (genre) VALUES ('Трагедия');
 INSERT INTO genres (genre) VALUES ('История');
 INSERT INTO genres (genre) VALUES ('Компьютерная литература');
 INSERT INTO genres (genre) VALUES ('Боевик');
+
+
+ALTER TABLE books ADD rating INT DEFAULT 0 NULL;
+ALTER TABLE books ADD votes INT DEFAULT 0 NULL;
+ALTER TABLE books ADD average_rating FLOAT DEFAULT 0 NULL;
+ALTER TABLE genres ADD count_book INT DEFAULT 0 NULL;

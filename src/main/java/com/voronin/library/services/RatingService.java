@@ -45,11 +45,14 @@ public class RatingService {
             this.ratingRepository.save(currentRating);
             book.setRating(book.getRating() + rating);
             book.setVotes(book.getVotes() + 1);
+            book.setAverageRating(((float) book.getRating() / book.getVotes() / 5) * 100);
             this.bookService.save(book);
         } else {
             if (currentRating.getRating() != rating) {
                 int newRating = (book.getRating() - currentRating.getRating()) + rating;
                 book.setRating(newRating);
+
+                book.setAverageRating(((float) book.getRating() / book.getVotes() / 5) * 100);
                 this.bookService.save(book);
                 currentRating.setRating(rating);
                 this.ratingRepository.save(currentRating);
