@@ -35,7 +35,7 @@ public class CropTheFile {
         return image == null ? null : resizeImage(image);
     }
 
-    private BufferedImage resizeImage(final Image image) {
+    private BufferedImage resizeImage(final BufferedImage image) {
         final BufferedImage bufferedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
         final Graphics2D graphics2D = bufferedImage.createGraphics();
         graphics2D.setComposite(AlphaComposite.Src);

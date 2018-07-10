@@ -19,6 +19,8 @@ public interface GenreRepository extends JpaRepository<Genre, UUID>{
 
     List<Genre> findByGenreInOrderByGenreAsc(Collection<String> genre);
 
+    List<Genre> findAllByOrderByGenreAsc();
+
     Genre getById(final UUID id);
 
 //    @Query(nativeQuery=true, value = "SELECT * FROM genres ORDER BY RANDOM() LIMIT 20")

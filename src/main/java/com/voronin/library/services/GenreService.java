@@ -5,7 +5,8 @@ import com.voronin.library.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * TODO: comment.
@@ -27,10 +28,8 @@ public class GenreService {
         return this.genreRepository.getById(id);
     }
 
-    public Set<Genre> findAll() {
-        Set<Genre> genres = new TreeSet<>(Comparator.comparing(Genre::getGenre));
-        genres.addAll(this.genreRepository.findAll());
-        return genres;
+    public List<Genre> findAll() {
+        return this.genreRepository.findAllByOrderByGenreAsc();
     }
 
     public List<Genre> findGenresInName(final List<String> names) {

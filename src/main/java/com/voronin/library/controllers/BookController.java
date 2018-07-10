@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -43,7 +42,7 @@ public class BookController {
     private RatingService ratingService;
 
     @RequestMapping("/genres")
-    private Set<Genre> getGenres() {
+    private List<Genre> getGenres() {
         return this.genreService.findAll();
     }
 
@@ -56,7 +55,7 @@ public class BookController {
                          @RequestParam final String description,
                          @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") final Date date) {
 
-        this.bookService.prepareAndSave(name, author, genre, cover, someBook, description, date);
+        this.bookService.save(this.bookService.prepareBook(name, author, genre, cover, someBook, description, date));
     }
 
     @RequestMapping("/books")

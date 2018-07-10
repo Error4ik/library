@@ -1,5 +1,6 @@
 package com.voronin.library.services;
 
+import com.google.common.collect.Lists;
 import com.voronin.library.domain.Author;
 import com.voronin.library.domain.Book;
 import com.voronin.library.domain.Genre;
@@ -68,13 +69,11 @@ public class BookService {
     }
 
     public List<Book> getBooksByGenre(final Genre genre) {
-        Set<Genre> genres = new HashSet<>();
-        genres.add(genre);
-        return this.bookRepository.getBooksByGenres(genres);
+        return this.bookRepository.getBooksByGenres(new ArrayList<Genre>(Lists.newArrayList(genre)));
     }
 
-    public Book prepareAndSave(final String name, final String author, final String genre, final MultipartFile cover,
-                               final MultipartFile someBook, final String description, final Date date) {
+    public Book prepareBook(final String name, final String author, final String genre, final MultipartFile cover,
+                            final MultipartFile someBook, final String description, final Date date) {
         Book book = new Book(name, description.trim(), new Timestamp(date.getTime()));
         book.setAuthors(this.getAuthors(author));
         book.setGenres(this.getGenres(genre));
@@ -83,13 +82,11 @@ public class BookService {
         File file = this.writeFileToDisk.writeBook(someBook, book);
         book.setUrl(file.getAbsolutePath());
         book.setPage(this.countPage(file));
-        return this.save(book);
+        return book;
     }
 
     public List<Book> getBooksByAuthor(final Author author) {
-        List<Author> authors = new ArrayList<>();
-        authors.add(author);
-        return this.bookRepository.getBooksByAuthors(authors);
+        return this.bookRepository.getBooksByAuthors(new ArrayList<Author>(Lists.newArrayList(author)));
     }
 
     private Image prepareImage(final MultipartFile file) {
