@@ -206,9 +206,9 @@ public class Book {
                 ", createDate=" + createDate +
                 ", dateAdded=" + dateAdded +
                 ", cover=" + cover +
-                ", rating" + rating +
-                ", votes" + votes +
-                ", average rating" + averageRating +
+                ", rating=" + rating +
+                ", votes=" + votes +
+                ", average rating=" + averageRating +
                 '}';
     }
 }

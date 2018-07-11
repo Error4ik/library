@@ -75,11 +75,11 @@ public class BookService {
     public Book prepareBook(final String name, final String author, final String genre, final MultipartFile cover,
                             final MultipartFile someBook, final String description, final Date date) {
         Book book = new Book(name, description.trim(), new Timestamp(date.getTime()));
-        book.setAuthors(this.getAuthors(author));
         book.setGenres(this.getGenres(genre));
+        File file = this.writeFileToDisk.writeBook(someBook, book);
+        book.setAuthors(this.getAuthors(author));
         book.setDateAdded(new Timestamp(System.currentTimeMillis()));
         book.setCover(this.imageService.save(prepareImage(cover)));
-        File file = this.writeFileToDisk.writeBook(someBook, book);
         book.setUrl(file.getAbsolutePath());
         book.setPage(this.countPage(file));
         return book;
@@ -118,7 +118,7 @@ public class BookService {
             PDDocument pdDocument = PDDocument.load(file);
             countPage = pdDocument.getNumberOfPages();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return countPage;
     }

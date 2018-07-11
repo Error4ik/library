@@ -26,8 +26,4 @@ public class ImageService {
     public Image getImageById(final UUID id) {
         return this.imageRepository.getImageById(id);
     }
-
-    public Image getImageByNameLike(final String name) {
-        return this.imageRepository.getImageByNameLike(name);
-    }
 }
