@@ -46,7 +46,7 @@ public class AuthorServiceTest {
     public void whenSaveAuthorShouldReturnAuthor() {
         when(authorRepository.save(author)).thenReturn(author);
 
-        assertThat(author, is(authorService.save(author)));
+        assertThat(authorService.save(author), is(author));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class AuthorServiceTest {
         final String name = "test";
         when(this.authorRepository.findByName(name)).thenReturn(author);
 
-        assertThat(name, is(this.authorService.findAuthorByName(name).getName()));
+        assertThat(this.authorService.findAuthorByName(name).getName(), is(name));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class AuthorServiceTest {
         author.setId(uuid);
         when(this.authorRepository.getById(uuid)).thenReturn(author);
 
-        assertThat(author, is(this.authorService.getAuthorById(uuid)));
+        assertThat(this.authorService.getAuthorById(uuid), is(author));
     }
 
     @Test
@@ -72,6 +72,6 @@ public class AuthorServiceTest {
         authors.add(author);
         when(this.authorRepository.findAll()).thenReturn(authors);
 
-        assertThat(authors, is(this.authorService.getAuthors()));
+        assertThat(this.authorService.getAuthors(), is(authors));
     }
 }

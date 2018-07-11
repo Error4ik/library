@@ -49,7 +49,7 @@ public class DetailServiceTest {
 
         UserDetails userDetails = detailService.loadUserByUsername("test@test.ru");
 
-        assertThat(user.getEmail(), is(userDetails.getUsername()));
-        assertThat(user.getPassword(), is(userDetails.getPassword()));
+        assertThat(userDetails.getUsername(), is(user.getEmail()));
+        assertThat(userDetails.getPassword(), is(user.getPassword()));
     }
 }

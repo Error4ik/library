@@ -3,6 +3,7 @@ package com.voronin.library.services;
 import com.voronin.library.domain.Role;
 import com.voronin.library.domain.User;
 import org.assertj.core.util.Lists;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -55,11 +56,17 @@ public class SecurityServiceTest {
     @Autowired
     private SecurityService securityService;
 
+    private final User user = new User("test@test.ru", "password");
+
+    @Before
+    public void init() {
+        Role role = new Role();
+        role.setRole("user");
+        user.setRoles(Lists.newArrayList(role));
+    }
+
     @Test
     public void whenFindLoggedUserShouldReturnUserName() {
-        User user = new User("user@user.ru", "password");
-        user.setRoles(new ArrayList<>());
-
         org.springframework.security.core.userdetails.User u =
                 new org.springframework.security.core.userdetails.User(
                         user.getEmail(), user.getPassword(), new ArrayList<>());
@@ -68,14 +75,11 @@ public class SecurityServiceTest {
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(u);
 
-        assertThat(user.getEmail(), is(this.securityService.findLoggedUser()));
+        assertThat(this.securityService.findLoggedUser(), is(user.getEmail()));
     }
 
     @Test(expected = UsernameNotFoundException.class)
     public void whenUserDetailsEqualsNullShouldThrowException() {
-        User user = new User("test@test.ru", "password");
-        user.setRoles(new ArrayList<>());
-
         when(userService.findUserByEmail("test@test.ru")).thenReturn(user);
         when(detailService.loadUserByUsername("test")).thenReturn(null);
 
@@ -83,12 +87,7 @@ public class SecurityServiceTest {
     }
 
     @Test
-    public void whenUser() {
-        User user = new User("test@test.ru", "password");
-        Role role = new Role();
-        role.setRole("user");
-        user.setRoles(Lists.newArrayList(role));
-
+    public void whenUserDetailsNotEqualsNullShouldTokenIsAuthenticate() {
         when(userService.findUserByEmail("test@test.ru")).thenReturn(user);
         when(detailService.loadUserByUsername("test@test.ru")).thenReturn(userDetails);
         when(userDetails.getAuthorities()).thenReturn(new ArrayList<>());

@@ -6,7 +6,9 @@ import com.voronin.library.domain.Genre;
 import com.voronin.library.repository.BookRepository;
 import com.voronin.library.util.CropTheFile;
 import com.voronin.library.util.WriteFileToDisk;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.assertj.core.util.Lists;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,10 +65,24 @@ public class BookServiceTest {
     @MockBean
     private MultipartFile multipartFile;
 
+    @MockBean
+    private BufferedImage bufferedImage;
+
+    @MockBean
+    private PDDocument pdDocument;
+
     @Autowired
     private BookService bookService;
 
     private final Book book = new Book("name", "description", new Timestamp(new Date().getTime()));
+
+    @Before
+    public void init() throws IOException {
+        final Genre genre = new Genre();
+        genre.setGenre("aaa");
+        genre.setCountBooks(1);
+        this.book.setGenres(new ArrayList<>(Lists.newArrayList(genre)));
+    }
 
     @Test
     public void whenSaveBookShouldReturnBook() {
@@ -77,7 +96,7 @@ public class BookServiceTest {
         final List<Book> books = new ArrayList<>(Lists.newArrayList(book));
         when(bookRepository.findAllByOrderByDateAddedAsc()).thenReturn(books);
 
-        assertThat(books, is(bookService.getBooks()));
+        assertThat(bookService.getBooks(), is(books));
     }
 
     @Test
@@ -86,7 +105,7 @@ public class BookServiceTest {
         book.setId(uuid);
         when(bookRepository.getBookById(uuid)).thenReturn(book);
 
-        assertThat(book, is(bookService.getBookById(uuid)));
+        assertThat(bookService.getBookById(uuid), is(book));
     }
 
     @Test
@@ -97,7 +116,7 @@ public class BookServiceTest {
         List<Book> books = new ArrayList<>(Lists.newArrayList(book));
         when(bookRepository.getBooksByGenres(genres)).thenReturn(books);
 
-        assertThat(books, is(bookService.getBooksByGenre(genre)));
+        assertThat(bookService.getBooksByGenre(genre), is(books));
     }
 
     @Test
@@ -108,28 +127,20 @@ public class BookServiceTest {
         List<Book> books = new ArrayList<>(Lists.newArrayList(book));
         when(bookRepository.getBooksByAuthors(authors)).thenReturn(books);
 
-        assertThat(books, is(bookService.getBooksByAuthor(author)));
+        assertThat(bookService.getBooksByAuthor(author), is(books));
     }
 
-//    @Test
-//    public void whenThePrepareBookCallsTheBookShouldReturn() {
-//        final String name = "name";
-//        final String author = "author";
-//        final String genre = "genre";
-//        final String description = "description";
-//        final Date date = new Date();
-//        final Image image = new Image();
-//        image.setName("image");
-//        byte[] b = new byte[10];
-//
-//        when(writeFileToDisk.writeBook(multipartFile, book)).thenReturn(file);
-//        when(cropTheFile.crop(multipartFile)).thenReturn(new BufferedImage(10, 10 ,1));
-//        when(multipartFile.getOriginalFilename()).thenReturn("file");
-//        when(file.getName()).thenReturn("file");
-//        when(file.getAbsolutePath()).thenReturn("file");
-//        when(imageService.save(image)).thenReturn(image);
-//        when(bookService.prepareBook(name, author, genre, multipartFile, multipartFile, description, date)).thenReturn(book);
-//
-//        assertThat(book, is(bookService.prepareBook(name, author, genre, multipartFile, multipartFile, description, date)));
-//    }
+    @Test
+    public void whenThePrepareBookCallsTheBookShouldReturn() throws Exception {
+        when(multipartFile.getOriginalFilename()).thenReturn("file");
+        when(cropTheFile.crop(multipartFile)).thenReturn(bufferedImage);
+        when(writeFileToDisk.writeImage("file", bufferedImage)).thenReturn(file);
+        when(genreService.findGenresInName(Lists.newArrayList("genre"))).thenReturn(book.getGenres());
+        when(writeFileToDisk.writeBook(multipartFile, book))
+                .thenReturn(Files.createTempFile("file", "png").toFile());
+
+        assertThat(bookService.prepareBook(
+                book.getName(), "author", "genre", multipartFile, multipartFile,
+                book.getDescription(), book.getCreateDate()).getName(), is(book.getName()));
+    }
 }

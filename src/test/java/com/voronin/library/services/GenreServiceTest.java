@@ -49,14 +49,14 @@ public class GenreServiceTest {
     public void whenSaveGenreShouldReturnGenre() {
         when(genreRepository.save(genre)).thenReturn(genre);
 
-        assertThat(genre, is(this.genreService.save(genre)));
+        assertThat(this.genreService.save(genre), is(genre));
     }
 
     @Test
     public void whenGetGenreByIdShouldReturnGenreById() {
         when(genreRepository.getById(genre.getId())).thenReturn(genre);
 
-        assertThat(genre, is(this.genreService.getGenreById(genre.getId())));
+        assertThat(this.genreService.getGenreById(genre.getId()), is(genre));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class GenreServiceTest {
         List<Genre> genres = new ArrayList<>(Lists.newArrayList(genre));
         when(genreRepository.findAllByOrderByGenreAsc()).thenReturn(genres);
 
-        assertThat(genres, is(this.genreService.findAll()));
+        assertThat(this.genreService.findAll(), is(genres));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class GenreServiceTest {
         List<Genre> genres = new ArrayList<>(Lists.newArrayList(genre));
         when(genreRepository.findByGenreInOrderByGenreAsc(names)).thenReturn(genres);
 
-        assertThat(genres, is(this.genreService.findGenresInName(names)));
+        assertThat(this.genreService.findGenresInName(names), is(genres));
     }
 
 }

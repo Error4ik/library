@@ -48,20 +48,20 @@ public class RoleServiceTest {
         List<Role> roles = new ArrayList<>(Lists.newArrayList(role));
         when(roleRepository.findAll()).thenReturn(roles);
 
-        assertThat(roles, is(this.roleService.getRoles()));
+        assertThat(this.roleService.getRoles(), is(roles));
     }
 
     @Test
     public void whenGetRoleByIdShouldReturnRole() {
         when(roleRepository.findRoleById(role.getId())).thenReturn(role);
 
-        assertThat(role, is(this.roleService.getRoleById(role.getId())));
+        assertThat(this.roleService.getRoleById(role.getId()), is(role));
     }
 
     @Test
     public void whenGetRoleByNameShouldReturnRole() {
         when(roleRepository.findRoleByRole(role.getRole())).thenReturn(role);
 
-        assertThat(role, is(this.roleService.findRoleByName(role.getRole())));
+        assertThat(this.roleService.findRoleByName(role.getRole()), is(role));
     }
 }
