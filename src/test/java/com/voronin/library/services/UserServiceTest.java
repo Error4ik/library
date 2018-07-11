@@ -36,6 +36,9 @@ public class UserServiceTest {
     @MockBean
     private SecurityService securityService;
 
+    @MockBean
+    private RoleService roleService;
+
     @Autowired
     private UserService userService;
 
@@ -79,6 +82,9 @@ public class UserServiceTest {
 
     @Test
     public void whenRegUserShouldSaveUserAndAutologin() {
+        Role role = new Role();
+        role.setRole("user");
+        when(roleService.findRoleByName("user")).thenReturn(role);
         UserService service = Mockito.spy(userService);
         service.regUser(user);
         verify(service, atLeast(1)).regUser(user);
