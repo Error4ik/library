@@ -50,8 +50,8 @@ public class BookController {
     public void saveBook(@RequestParam final String name,
                          @RequestParam final String author,
                          @RequestParam final String genre,
-                         @RequestParam final MultipartFile cover,
-                         @RequestParam final MultipartFile someBook,
+                         @RequestParam(required = false) final MultipartFile cover,
+                         @RequestParam(required = false) final MultipartFile someBook,
                          @RequestParam final String description,
                          @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") final Date date) {
 
