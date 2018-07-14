@@ -1,6 +1,7 @@
 package com.voronin.library.controllers;
 
 import com.voronin.library.domain.Author;
+import com.voronin.library.domain.Book;
 import com.voronin.library.domain.Genre;
 import com.voronin.library.services.AuthorService;
 import com.voronin.library.services.BookService;
@@ -18,6 +19,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -125,27 +128,36 @@ public class BookControllerTest {
                 .prepareAndSave(uuid.toString(), currentRating, testingAuthenticationToken);
     }
 
-    @MockBean
-    private Date date;
+    @Test
+    public void whenSaveBookShouldReturnBook() throws Exception {
+        Date d = new Date();
+        d = getStartOfDay(d);
 
-//    @Test
-//    public void whenSaveBookShouldReturnBook() throws Exception {
-//        final Date d = new Date(1531342800000L);
-//        final String val = "test";
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        when(this.bookService.prepareBook(val, val, val, null, null, val, d)).thenReturn(new Book());
-//
-//        this.mockMvc.perform(get("/book/save")
-//                .param("name", val)
-//                .param("author", val)
-//                .param("genre", val)
-//                .param("description", val)
-//                .param("date", format.format(d))
-//        ).andExpect(status().isOk());
-//
-//        verify(this.bookService, times(1))
-//                .prepareBook(val, val, val, null, null, val, d);
-//        verify(this.bookService, times(1)).save(new Book());
-//    }
+        final String val = "test";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        when(this.bookService.prepareBook(val, val, val, null, null, val, d)).thenReturn(new Book());
+
+        this.mockMvc.perform(get("/book/save")
+                .param("name", val)
+                .param("author", val)
+                .param("genre", val)
+                .param("description", val)
+                .param("date", format.format(d))
+        ).andExpect(status().isOk());
+
+        verify(this.bookService, times(1))
+                .prepareBook(val, val, val, null, null, val, d);
+        verify(this.bookService, times(1)).save(new Book());
+    }
+
+    private Date getStartOfDay(final Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
 }
