@@ -1,5 +1,6 @@
 package com.voronin.library.controllers;
 
+import com.voronin.library.repository.*;
 import com.voronin.library.services.GenreService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +32,27 @@ public class IndexControllerTest {
 
     @MockBean
     private GenreService genreService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
+    private RoleRepository roleRepository;
+
+    @MockBean
+    private ImageRepository imageRepository;
+
+    @MockBean
+    private GenreRepository genreRepository;
+
+    @MockBean
+    private BookRepository bookRepository;
+
+    @MockBean
+    private RatingRepository ratingRepository;
+
+    @MockBean
+    private AuthorRepository authorRepository;
 
     @Test
     @WithMockUser(username = "user", roles = {"USER"})
