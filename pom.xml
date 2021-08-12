@@ -98,7 +98,11 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
+<<<<<<< HEAD
 			<version>29.0-jre</version>
+=======
+			<version>30.0-jre</version>
+>>>>>>> 7e4737f13ebde07c55b314a1a5c57d69926eef57
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
