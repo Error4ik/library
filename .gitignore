@@ -1,4 +1,5 @@
 /target/
+/library/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

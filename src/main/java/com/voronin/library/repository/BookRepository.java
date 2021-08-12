@@ -19,9 +19,9 @@ import java.util.UUID;
 @Repository
 public interface BookRepository extends JpaRepository<Book, UUID> {
 
-    List<Book> getBooksByGenres(Collection<Genre> genres);
+    List<Book> getBooksByGenresIn(Collection<Genre> genres);
 
-    List<Book> getBooksByAuthors(Collection<Author> authors);
+    List<Book> getBooksByAuthorsIn(Collection<Author> authors);
 
     Book getBookById(final UUID id);
 
