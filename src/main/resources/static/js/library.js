@@ -1,4 +1,4 @@
-base_url = 'http://localhost:8080/library';
+base_url = 'http://localhost:8087/library';
 
 var library = angular.module("library", ['ngRoute', 'angularUtils.directives.dirPagination']);
 
@@ -137,5 +137,5 @@ function addBook() {
 }
 
 function omgFunction(genres) {
-    console.log("hello");
+    console.log("hello library");
 }

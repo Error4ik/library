@@ -3,6 +3,7 @@ package com.voronin.library.controllers;
 import com.voronin.library.domain.Author;
 import com.voronin.library.domain.Book;
 import com.voronin.library.domain.Genre;
+import com.voronin.library.repository.*;
 import com.voronin.library.services.AuthorService;
 import com.voronin.library.services.BookService;
 import com.voronin.library.services.GenreService;
@@ -54,6 +55,24 @@ public class BookControllerTest {
 
     @MockBean
     private RatingService ratingService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
+    private RoleRepository roleRepository;
+
+    @MockBean
+    private ImageRepository imageRepository;
+
+    @MockBean
+    private GenreRepository genreRepository;
+
+    @MockBean
+    private BookRepository bookRepository;
+
+    @MockBean
+    private RatingRepository ratingRepository;
 
     private final UUID uuid = UUID.randomUUID();
 

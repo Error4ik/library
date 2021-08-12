@@ -114,7 +114,7 @@ public class BookServiceTest {
         genre.setGenre("test");
         List<Genre> genres = new ArrayList<>(Lists.newArrayList(genre));
         List<Book> books = new ArrayList<>(Lists.newArrayList(book));
-        when(bookRepository.getBooksByGenres(genres)).thenReturn(books);
+        when(bookRepository.getBooksByGenresIn(genres)).thenReturn(books);
 
         assertThat(bookService.getBooksByGenre(genre), is(books));
     }
@@ -125,7 +125,7 @@ public class BookServiceTest {
         author.setName("test");
         List<Author> authors = new ArrayList<>(Lists.newArrayList(author));
         List<Book> books = new ArrayList<>(Lists.newArrayList(book));
-        when(bookRepository.getBooksByAuthors(authors)).thenReturn(books);
+        when(bookRepository.getBooksByAuthorsIn(authors)).thenReturn(books);
 
         assertThat(bookService.getBooksByAuthor(author), is(books));
     }

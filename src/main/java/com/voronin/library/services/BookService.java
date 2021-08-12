@@ -69,7 +69,7 @@ public class BookService {
     }
 
     public List<Book> getBooksByGenre(final Genre genre) {
-        return this.bookRepository.getBooksByGenres(new ArrayList<Genre>(Lists.newArrayList(genre)));
+        return this.bookRepository.getBooksByGenresIn(new ArrayList<Genre>(Lists.newArrayList(genre)));
     }
 
     public Book prepareBook(final String name, final String author, final String genre, final MultipartFile cover,
@@ -86,7 +86,7 @@ public class BookService {
     }
 
     public List<Book> getBooksByAuthor(final Author author) {
-        return this.bookRepository.getBooksByAuthors(new ArrayList<Author>(Lists.newArrayList(author)));
+        return this.bookRepository.getBooksByAuthorsIn(new ArrayList<Author>(Lists.newArrayList(author)));
     }
 
     private Image prepareImage(final MultipartFile file) {
